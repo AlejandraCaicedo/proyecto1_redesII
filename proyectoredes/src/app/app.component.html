@@ -25,111 +25,190 @@
 
     <h2>Datos de entrada</h2>
 
-    <form>
+    <div class="row">
 
-      <div class="form-group">
-        <label for="version">Versión del datagrama</label>
-        <input type="text" class="form-control" placeholder="4" id="version" readonly>
+      <div class="col-sm">
+
+        <form>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm">
+                <label for="version">Versión del datagrama</label>
+                <p></p>
+                <input type="text" class="form-control" placeholder="4" id="version" readonly>
+              </div>
+
+              <div class="col-sm">
+                <label for="longitudE">Longitud del encabezado</label>
+                <p></p>
+                <input type="text" class="form-control" placeholder="5 words de 32bits" id="longitudE" readonly>
+              </div>
+
+              <div class="col-sm">
+                <label for="servicios">Servicios diferenciados</label>
+                <p></p>
+                <input type="text" class="form-control" placeholder="0" id="servicios" readonly>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm">
+                <label for="longitudTotal">Longitud total</label>
+                <p></p>
+                <input type="number" class="form-control" placeholder="Longitud total del datagrama" id="longitudTotal">
+              </div>
+
+              <div class="col-sm">
+                <label for="id">Número de identificación</label>
+                <p></p>
+                <input type="text" class="form-control" placeholder="Valor entre 0 y 65.535" id="id" readonly>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+
+            <label>Flags</label>
+            <p></p>
+
+            <div class="row">
+
+              <div class="col-sm">
+                <input type="text" class="form-control" placeholder="0" id="flag1">
+                <label for="flag1">0</label>
+              </div>
+
+              <div class="col-sm">
+                <input type="text" class="form-control" placeholder="DF" id="DF">
+                <label for="DF">DF</label>
+              </div>
+
+              <div class="col-sm">
+                <input type="text" class="form-control" placeholder="MF" id="MF">
+                <label for="MF">MF</label>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm">
+                <label for="desplazamiento">Desplazamiento</label>
+                <p></p>
+                <input type="text" class="form-control" placeholder="Desplazamiento" id="desplazamiento" readonly>
+              </div>
+
+              <div class="col-sm">
+                <label for="ttl">Tiempo de vida</label>
+                <p></p>
+                <input type="text" class="form-control" placeholder="Valor entre 0 y 255" id="ttl" readonly>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm">
+                <label>Protocolo de nivel superior</label>
+                <p></p>
+                <div class="radio">
+                  <label class="radio-inline">
+                    <input type="radio" name="optradio">ICMP</label>
+                  <label class="radio-inline">
+                    <input type="radio" name="optradio">TCP</label>
+                  <label class="radio-inline">
+                    <input type="radio" name="optradio">UDP</label>
+                </div>
+              </div>
+
+              <div class="col-sm">
+                <label for="suma">Suma de comprobación</label>
+                <p></p>
+                <input type="text" class="form-control" placeholder="Suma de comprobación" id="suma" readonly>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+
+            <label>Dirección IP de origen</label>
+            <p></p>
+
+            <div class="row">
+              <div class="col-sm">
+                <input type="text" class="form-control" id="ipOrigen1">
+                <label for="ipOrigen1">Octeto 1</label>
+              </div>
+
+              <div class="col-sm">
+                <input type="text" class="form-control" id="ipOrigen2">
+                <label for="ipOrigen2">Octeto 2</label>
+              </div>
+
+              <div class="col-sm">
+                <input type="text" class="form-control" id="ipOrigen3">
+                <label for="ipOrigen3">Octeto 3</label>
+              </div>
+
+              <div class="col-sm">
+                <input type="text" class="form-control" id="ipOrigen4">
+                <label for="ipOrigen4">Octeto 4</label>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="form-group">
+
+            <label>Dirección IP de destino</label>
+            <p></p>
+
+            <div class="row">
+
+              <div class="col-sm">
+                <input type="text" class="form-control" id="ipDestino1">
+                <label for="ipDestino1">Octeto 1</label>
+              </div>
+
+              <div class="col-sm">
+                <input type="text" class="form-control" id="ipDestino2">
+                <label for="ipDestino2">Octeto 2</label>
+              </div>
+
+              <div class="col-sm">
+                <input type="text" class="form-control" id="ipDestino3">
+                <label for="ipDestino3">Octeto 3</label>
+              </div>
+
+              <div class="col-sm">
+                <input type="text" class="form-control" id="ipDestino4">
+                <label for="ipDestino4">Octeto 4</label>
+              </div>
+
+            </div>
+
+          </div>
+
+        </form>
+
       </div>
 
-      <div class="form-group">
-        <label for="longitudE">Longitud del encabezado</label>
-        <input type="text" class="form-control" placeholder="5 words de 32bits" id="longitudE" readonly>
-      </div>
+    </div>
 
-      <div class="form-group">
-        <label for="servicios">Servicios diferenciados</label>
-        <input type="text" class="form-control" placeholder="0" id="servicios" readonly>
-      </div>
+    <div class="form-group">
+      <button type="button" class="btn btn-lg btn-primary">Generar encabezado</button>
+    </div>
 
-      <div class="form-group">
-        <label for="longitudTotal">Longitud total</label>
-        <input type="number" class="form-control" placeholder="Longitud total del datagrama" id="longitudTotal">
-      </div>
-
-      <div class="form-group">
-        <label for="id">Número de identificación</label>
-        <input type="text" class="form-control" placeholder="Número de identificación" id="id" readonly>
-      </div>
-
-      <div class="form-group">
-        <label for="id">Número de identificación</label>
-        <input type="text" class="form-control" placeholder="Número de identificación" id="id" readonly>
-      </div>
-
-      <div class="form-group">
-        <label>Flags</label>
-
-        <input type="text" class="form-control" placeholder="0" id="flag1">
-        <label for="flag1">0</label>
-
-        <input type="text" class="form-control" placeholder="DF" id="DF">
-        <label for="DF">DF</label>
-
-        <input type="text" class="form-control" placeholder="MF" id="MF">
-        <label for="MF">MF</label>
-      </div>
-
-      <div class="form-group">
-        <label for="desplazamiento">Desplazamiento</label>
-        <input type="text" class="form-control" placeholder="Desplazamiento" id="desplazamiento" readonly>
-      </div>
-
-      <div class="form-group">
-        <label for="ttl">Tiempo de vida</label>
-        <input type="text" class="form-control" placeholder="Tiempo de vida" id="ttl" readonly>
-      </div>
-
-      <div class="form-group">
-        <label>Protocolo de nivel superior</label>
-        <div class="radio">
-          <label class="radio-inline">
-            <input type="radio" name="optradio">ICMP</label>
-          <label class="radio-inline">
-            <input type="radio" name="optradio">TCP</label>
-          <label class="radio-inline">
-            <input type="radio" name="optradio">UDP</label>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="suma">Suma de comprobación</label>
-        <input type="text" class="form-control" placeholder="Suma de comprobación" id="suma" readonly>
-      </div>
-
-      <div class="form-group">
-        <label>Dirección IP de origen</label>
-
-        <input type="text" class="form-control" placeholder="Octeto 1" id="ipOrigen1">
-        <label for="ipOrigen1">Octeto 1</label>
-
-        <input type="text" class="form-control" placeholder="Octeto 2" id="ipOrigen2">
-        <label for="ipOrigen2">Octeto 2</label>
-
-        <input type="text" class="form-control" placeholder="Octeto 3" id="ipOrigen3">
-        <label for="ipOrigen3">Octeto 3</label>
-
-        <input type="text" class="form-control" placeholder="Octeto 4" id="ipOrigen4">
-        <label for="ipOrigen4">Octeto 4</label>
-      </div>
-
-      <div class="form-group">
-        <label>Dirección IP de destino</label>
-
-        <input type="text" class="form-control" placeholder="Octeto 1" id="ipDestino1">
-        <label for="ipDestino1">Octeto 1</label>
-
-        <input type="text" class="form-control" placeholder="Octeto 2" id="ipDestino2">
-        <label for="ipDestino2">Octeto 2</label>
-
-        <input type="text" class="form-control" placeholder="Octeto 3" id="ipDestino3">
-        <label for="ipDestino3">Octeto 3</label>
-
-        <input type="text" class="form-control" placeholder="Octeto 4" id="ipDestino4">
-        <label for="ipDestino4">Octeto 4</label>
-      </div>
-
-    </form>
+    <div class="form-group">
+      <label for="floatingTextarea">Encabezado Datagrama IPv4</label>
+      <textarea class="form-control" placeholder="Encabezado Datagrama IPv4" id="floatingTextarea" readonly></textarea>
+    </div>
 
   </div>
 
