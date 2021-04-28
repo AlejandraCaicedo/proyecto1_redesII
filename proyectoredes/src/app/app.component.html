@@ -3,11 +3,15 @@
 <html>
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
     crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="app.component.css">
+  <title>Datagramas IPv4</title>
 </head>
 
 <body>
@@ -17,118 +21,117 @@
     <p>Construcción y fragmentación</p>
   </header>
 
-  <form action="">
-    <!--  Datos de entrada -->
-    <div class="form-group">
-      <h2 class="heading">Datos de entrada</h2>
+  <div class="container" id="datagramaip">
 
-      <form class="row justify-content-around">
+    <h2>Datos de entrada</h2>
 
-        <div class="col-5">
-          <div class="controls">
-            <input type="number" id="mtu" class="floatLabel" name="mtu">
-            <label for="mtu">Unidad máxima de referencia</label>
-          </div>
+    <form>
+
+      <div class="form-group">
+        <label for="version">Versión del datagrama</label>
+        <input type="text" class="form-control" placeholder="4" id="version" readonly>
+      </div>
+
+      <div class="form-group">
+        <label for="longitudE">Longitud del encabezado</label>
+        <input type="text" class="form-control" placeholder="5 words de 32bits" id="longitudE" readonly>
+      </div>
+
+      <div class="form-group">
+        <label for="servicios">Servicios diferenciados</label>
+        <input type="text" class="form-control" placeholder="0" id="servicios" readonly>
+      </div>
+
+      <div class="form-group">
+        <label for="longitudTotal">Longitud total</label>
+        <input type="number" class="form-control" placeholder="Longitud total del datagrama" id="longitudTotal">
+      </div>
+
+      <div class="form-group">
+        <label for="id">Número de identificación</label>
+        <input type="text" class="form-control" placeholder="Número de identificación" id="id" readonly>
+      </div>
+
+      <div class="form-group">
+        <label for="id">Número de identificación</label>
+        <input type="text" class="form-control" placeholder="Número de identificación" id="id" readonly>
+      </div>
+
+      <div class="form-group">
+        <label>Flags</label>
+
+        <input type="text" class="form-control" placeholder="0" id="flag1">
+        <label for="flag1">0</label>
+
+        <input type="text" class="form-control" placeholder="DF" id="DF">
+        <label for="DF">DF</label>
+
+        <input type="text" class="form-control" placeholder="MF" id="MF">
+        <label for="MF">MF</label>
+      </div>
+
+      <div class="form-group">
+        <label for="desplazamiento">Desplazamiento</label>
+        <input type="text" class="form-control" placeholder="Desplazamiento" id="desplazamiento" readonly>
+      </div>
+
+      <div class="form-group">
+        <label for="ttl">Tiempo de vida</label>
+        <input type="text" class="form-control" placeholder="Tiempo de vida" id="ttl" readonly>
+      </div>
+
+      <div class="form-group">
+        <label>Protocolo de nivel superior</label>
+        <div class="radio">
+          <label class="radio-inline">
+            <input type="radio" name="optradio">ICMP</label>
+          <label class="radio-inline">
+            <input type="radio" name="optradio">TCP</label>
+          <label class="radio-inline">
+            <input type="radio" name="optradio">UDP</label>
         </div>
-
-        <div class="col-5">
-          <div class="controls">
-            <input type="number" id="longitudTotal" class="floatLabel" name="longitudTotal">
-            <label for="longitudTotal">Longitud total</label>
-          </div>
-        </div>
-
-      </form>
-
-      <div class="controls">
-        <label for="protocolo" style="text-align: center;">Protocolo de nivel superior</label>
       </div>
 
-      <form>
-        <label class="radio-inline p-4">
-          <input type="radio" name="optradio" checked>ICMP
-        </label>
-        <label class="radio-inline p-4">
-          <input type="radio" name="optradio">TCP
-        </label>
-        <label class="radio-inline p-4">
-          <input type="radio" name="optradio">UDP
-        </label>
-      </form>
-
-
-      <form class="row justify-content-around">
-        <div class="controls">
-          <div class="col">
-            <label for="protocolo">Dirección IP de origen</label>
-          </div>
-        </div>
-      </form>
-
-      <div class="controls">
-
-        <form class="row justify-content-around">
-
-          <div class="col-2">
-            <label for="ipOrigen1" class="form-label" style="position: static">Octeto 1</label>
-            <input type="text" id="ipOrigen1" class="form-control" name="ipOrigen1">
-          </div>
-
-          <div class="col-2">
-            <label for="ipOrigen2" class="form-label" style="position: static">Octeto 2</label>
-            <input type="text" id="ipOrigen2" class="form-control" name="ipOrigen2">
-          </div>
-
-          <div class="col-2">
-            <label for="ipOrigen3" class="form-label" style="position: static">Octeto 3</label>
-            <input type="text" id="ipOrigen3" class="form-control" name="ipOrigen3">
-          </div>
-
-          <div class="col-2">
-            <label for="ipOrigen4" class="form-label" style="position: static">Octeto 4</label>
-            <input type="text" id="ipOrigen4" class="form-control" name="ipOrigen4">
-          </div>
-
-        </form>
-
+      <div class="form-group">
+        <label for="suma">Suma de comprobación</label>
+        <input type="text" class="form-control" placeholder="Suma de comprobación" id="suma" readonly>
       </div>
 
-      <div class="controls">
-        <input type="text" id="ipDestino" class="floatLabel" name="ipDestino">
-        <label for="ipDestino">Dirección IP destino</label>
+      <div class="form-group">
+        <label>Dirección IP de origen</label>
+
+        <input type="text" class="form-control" placeholder="Octeto 1" id="ipOrigen1">
+        <label for="ipOrigen1">Octeto 1</label>
+
+        <input type="text" class="form-control" placeholder="Octeto 2" id="ipOrigen2">
+        <label for="ipOrigen2">Octeto 2</label>
+
+        <input type="text" class="form-control" placeholder="Octeto 3" id="ipOrigen3">
+        <label for="ipOrigen3">Octeto 3</label>
+
+        <input type="text" class="form-control" placeholder="Octeto 4" id="ipOrigen4">
+        <label for="ipOrigen4">Octeto 4</label>
       </div>
 
-    </div>
-    <!--  Details -->
-    <div class="form-group">
-      <h2 class="heading">Details</h2>
-      <div class="controls">
-        <input type="tel" id="cell" class="floatLabel" name="cell">
-        <label for="cell">Celly</label>
+      <div class="form-group">
+        <label>Dirección IP de destino</label>
+
+        <input type="text" class="form-control" placeholder="Octeto 1" id="ipDestino1">
+        <label for="ipDestino1">Octeto 1</label>
+
+        <input type="text" class="form-control" placeholder="Octeto 2" id="ipDestino2">
+        <label for="ipDestino2">Octeto 2</label>
+
+        <input type="text" class="form-control" placeholder="Octeto 3" id="ipDestino3">
+        <label for="ipDestino3">Octeto 3</label>
+
+        <input type="text" class="form-control" placeholder="Octeto 4" id="ipDestino4">
+        <label for="ipDestino4">Octeto 4</label>
       </div>
-      <div class="controls">
-        <i class="fa fa-sort"></i>
-        <select class="floatLabel">
-          <option value="blank"></option>
-          <option value="Apple">Apple</option>
-          <option value="Banana">Banana</option>
-          <option value="Kiwi">Kiwi</option>
-          <option value="Orange">Orange</option>
-          <option value="Watermelon">Watermelon</option>
-        </select>
-        <label for="fruit">Favotire Fruit</label>
-      </div>
-    </div>
-    <!--  More -->
-    <div class="form-group">
-      <h2 class="heading">More!</h2>
-      <div class="controls">
-        <textarea name="comments" class="floatLabel" id="comments"></textarea>
-        <label for="comments">Comments</label>
-        <button>Submit</button>
-      </div>
-    </div>
-  </form>
+
+    </form>
+
+  </div>
 
 </body>
 
