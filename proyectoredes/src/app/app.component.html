@@ -15,7 +15,6 @@
 </head>
 
 <body>
-
   <header>
     <h1><i class="fa fa-cloud"></i> Datagramas Ipv4 <i class="fa fa-cloud"></i></h1>
     <p>Construcción y fragmentación</p>
@@ -58,7 +57,8 @@
               <div class="col-sm">
                 <label for="longitudTotal">Longitud total</label>
                 <p></p>
-                <input type="number" class="form-control" placeholder="Longitud total del datagrama" id="longitudTotal">
+                <input type="number" class="form-control" placeholder="Longitud total del datagrama" id="longitudTotal"
+                  required #longitudTotal>
               </div>
 
               <div class="col-sm">
@@ -77,17 +77,17 @@
             <div class="row">
 
               <div class="col-sm">
-                <input type="text" class="form-control" placeholder="0" id="flag1">
+                <input type="text" class="form-control" placeholder="0" id="flag1" readonly>
                 <label for="flag1">0</label>
               </div>
 
               <div class="col-sm">
-                <input type="text" class="form-control" placeholder="DF" id="DF">
+                <input type="text" class="form-control" placeholder="DF" id="DF" readonly>
                 <label for="DF">DF</label>
               </div>
 
               <div class="col-sm">
-                <input type="text" class="form-control" placeholder="MF" id="MF">
+                <input type="text" class="form-control" placeholder="MF" id="MF" readonly>
                 <label for="MF">MF</label>
               </div>
 
@@ -118,11 +118,14 @@
                 <p></p>
                 <div class="radio">
                   <label class="radio-inline">
-                    <input type="radio" name="optradio">ICMP</label>
+                    <input type="radio" name="optradio" value="00000001"
+                      (change)="radioChangeHandler($event)">ICMP</label>
                   <label class="radio-inline">
-                    <input type="radio" name="optradio">TCP</label>
+                    <input type="radio" name="optradio" value="00000110"
+                      (change)="radioChangeHandler($event)">TCP</label>
                   <label class="radio-inline">
-                    <input type="radio" name="optradio">UDP</label>
+                    <input type="radio" name="optradio" value="00010001"
+                      (change)="radioChangeHandler($event)">UDP</label>
                 </div>
               </div>
 
@@ -141,22 +144,22 @@
 
             <div class="row">
               <div class="col-sm">
-                <input type="text" class="form-control" id="ipOrigen1">
+                <input type="number" class="form-control" id="ipOrigen1" required #ipOrigen1>
                 <label for="ipOrigen1">Octeto 1</label>
               </div>
 
               <div class="col-sm">
-                <input type="text" class="form-control" id="ipOrigen2">
+                <input type="number" class="form-control" id="ipOrigen2" required #ipOrigen2>
                 <label for="ipOrigen2">Octeto 2</label>
               </div>
 
               <div class="col-sm">
-                <input type="text" class="form-control" id="ipOrigen3">
+                <input type="number" class="form-control" id="ipOrigen3" required #ipOrigen3>
                 <label for="ipOrigen3">Octeto 3</label>
               </div>
 
               <div class="col-sm">
-                <input type="text" class="form-control" id="ipOrigen4">
+                <input type="number" class="form-control" id="ipOrigen4" required #ipOrigen4>
                 <label for="ipOrigen4">Octeto 4</label>
               </div>
 
@@ -172,22 +175,22 @@
             <div class="row">
 
               <div class="col-sm">
-                <input type="text" class="form-control" id="ipDestino1">
+                <input type="number" class="form-control" id="ipDestino1" required #ipDestino1>
                 <label for="ipDestino1">Octeto 1</label>
               </div>
 
               <div class="col-sm">
-                <input type="text" class="form-control" id="ipDestino2">
+                <input type="number" class="form-control" id="ipDestino2" required #ipDestino2>
                 <label for="ipDestino2">Octeto 2</label>
               </div>
 
               <div class="col-sm">
-                <input type="text" class="form-control" id="ipDestino3">
+                <input type="number" class="form-control" id="ipDestino3" required #ipDestino3>
                 <label for="ipDestino3">Octeto 3</label>
               </div>
 
               <div class="col-sm">
-                <input type="text" class="form-control" id="ipDestino4">
+                <input type="number" class="form-control" id="ipDestino4" required #ipDestino4>
                 <label for="ipDestino4">Octeto 4</label>
               </div>
 
@@ -202,7 +205,10 @@
     </div>
 
     <div class="form-group">
-      <button type="button" class="btn btn-lg btn-primary">Generar encabezado</button>
+      <button (click)="generarDatagrama(longitudTotal.valueAsNumber, ipOrigen1.valueAsNumber, ipOrigen2.valueAsNumber, ipOrigen3.valueAsNumber, ipOrigen4.valueAsNumber,
+        ipDestino1.valueAsNumber, ipDestino2.valueAsNumber, ipDestino3.valueAsNumber, ipDestino4.valueAsNumber)"
+        type="button" class="btn btn-lg btn-primary">Generar
+        encabezado</button>
     </div>
 
     <div class="form-group">
