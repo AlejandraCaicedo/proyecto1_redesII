@@ -63,7 +63,7 @@
               <div class="col-sm">
                 <label for="id">Número de identificación</label>
                 <p></p>
-                <input type="text" class="form-control" placeholder="Valor entre 0 y 65.535" id="id" readonly>
+                <input type="text" class="form-control" placeholder="{{identificacion}}" id="id" readonly>
               </div>
             </div>
           </div>
@@ -95,22 +95,29 @@
               </div>
 
               <div class="col-sm">
+                <label for="mtu">Unidad máxima de referencia</label>
+                <p></p>
+                <input type="number" class="form-control" placeholder="Unidad máxima de transferencia" id="mtu" #MTU>
+              </div>
+
+              <div class="col-sm">
                 <label for="desplazamiento">Desplazamiento</label>
                 <p></p>
                 <input type="text" class="form-control" placeholder="Desplazamiento" id="desplazamiento" readonly>
               </div>
 
-              <div class="col-sm">
-                <label for="ttl">Tiempo de vida</label>
-                <p></p>
-                <input type="text" class="form-control" placeholder="Valor entre 0 y 255" id="ttl" readonly>
-              </div>
 
             </div>
           </div>
 
           <div class="form-group">
             <div class="row">
+
+              <div class="col-sm">
+                <label for="ttl">Tiempo de vida</label>
+                <p></p>
+                <input type="text" class="form-control" placeholder="{{tiempoDeVida}}" id="ttl" readonly>
+              </div>
 
               <div class="col-sm">
                 <label>Protocolo de nivel superior</label>
@@ -210,7 +217,7 @@
           </div>
 
           <div class="form-group">
-            <button (click)="generarDatagrama(longitudTotal.valueAsNumber, ipOrigen1.valueAsNumber, ipOrigen2.valueAsNumber, ipOrigen3.valueAsNumber, ipOrigen4.valueAsNumber,
+            <button (click)="generarDatagrama(MTU.valueAsNumber, longitudTotal.valueAsNumber, ipOrigen1.valueAsNumber, ipOrigen2.valueAsNumber, ipOrigen3.valueAsNumber, ipOrigen4.valueAsNumber,
               ipDestino1.valueAsNumber, ipDestino2.valueAsNumber, ipDestino3.valueAsNumber, ipDestino4.valueAsNumber)"
               type="button" class="btn btn-lg btn-primary">Generar
               encabezado</button>
@@ -226,12 +233,12 @@
 
     <div class="form-group">
       <label for="floatingTextarea">Encabezado Datagrama IPv4 en formato binario</label>
-      <textarea class="form-control" placeholder="Encabezado Datagrama IPv4" id="floatingTextarea" readonly></textarea>
+      <textarea class="form-control" placeholder="{{ fragmentosBinarios }}" id="floatingTextarea" readonly></textarea>
     </div>
 
     <div class="form-group">
       <label for="floatingTextarea">Encabezado Datagrama IPv4 en formato Hexadecimal</label>
-      <textarea class="form-control" placeholder="Encabezado Datagrama IPv4" id="floatingTextarea" readonly></textarea>
+      <textarea class="form-control" placeholder="{{ fragmentos }}" id="floatingTextarea" cols="40" readonly></textarea>
     </div>
 
   </div>

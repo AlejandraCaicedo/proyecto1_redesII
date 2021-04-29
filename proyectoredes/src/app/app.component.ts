@@ -12,22 +12,35 @@ export class AppComponent {
   longitudEncabezado = "0100";
   serviciosDiferenciados = "00000000";
 
-  // Identificación y TTL generados Aleatoriamente
-  identificacionNum = generarNumeroAleatorio(0, 65535);
-  identificacion = agregarCeros(this.identificacionNum.toString(2), 16);
-  identificacionHexa = convertirBinarioHexa(this.identificacion);
-  tiempoDeVidaNum = generarNumeroAleatorio(0, 255);
-  tiempoDeVida = agregarCeros(this.tiempoDeVidaNum.toString(2), 8);
+  // Datos Aleatorios
+  identificacion: String[] = ["Valor entre 0 y 65.535"];
+  tiempoDeVida: String[] = ["Valor entre 0 y 255"];
 
   // Datos Ingresados
-  MTU: number = 1500;
+  MTU: number = 0;
   longitudTotal: number = 0;
   protocoloNum: String = "";
   ipOrigen = "";
   ipDestino = "";
 
-  generarDatagrama(longitudTotal: number, ipOrigen1: number, ipOrigen2: number, ipOrigen3: number, ipOrigen4: number,
+  checksum = "";
+
+  fragmentos: String = "Encabezado Datagrama IPv4";
+  // fragmentosBinarios: String[] = ["Encabezado Datagrama IPv4"];
+  fragmentosBinarios: String = "Encabezado Datagrama IPv4";
+
+  generarDatagrama(MTU: number, longitudTotal: number, ipOrigen1: number, ipOrigen2: number, ipOrigen3: number, ipOrigen4: number,
     ipDestino1: number, ipDestino2: number, ipDestino3: number, ipDestino4: number) {
+
+    // Identificación y TTL generados Aleatoriamente
+    let identificacionNum = generarNumeroAleatorio(0, 65535);
+    let identificacion = agregarCeros(identificacionNum.toString(2), 16);
+    this.identificacion = convertirBinarioHexa(identificacion);
+    let identificacionHexa = convertirBinarioHexa(identificacion);
+    let tiempoDeVidaNum = generarNumeroAleatorio(0, 255);
+    let tiempoDeVida = agregarCeros(tiempoDeVidaNum.toString(2), 8);
+    this.tiempoDeVida = convertirBinarioHexa(tiempoDeVida);
+
 
     this.ipOrigen = agregarCeros(ipOrigen1.toString(2), 8) + agregarCeros(ipOrigen2.toString(2), 8) +
       agregarCeros(ipOrigen3.toString(2), 8) + agregarCeros(ipOrigen4.toString(2), 8);
@@ -35,11 +48,17 @@ export class AppComponent {
     this.ipDestino = agregarCeros(ipDestino1.toString(2), 8) + agregarCeros(ipDestino2.toString(2), 8) +
       agregarCeros(ipDestino3.toString(2), 8) + agregarCeros(ipDestino4.toString(2), 8);
 
-    // Array de Datagramas, si existen más de 1
-    let resultado = fragmentarDataGrama(this.MTU, this.version, this.longitudEncabezado, longitudTotal, this.serviciosDiferenciados,
-      "1111100111011100", "01000000", this.protocoloNum, this.ipOrigen, this.ipDestino);
+    // Array de Datagramas, si existen más de 1 Desplazamiento(Quemado)
+    let resultado = fragmentarDataGrama(MTU, this.version, this.longitudEncabezado, longitudTotal, this.serviciosDiferenciados,
+      "1111100111011100", tiempoDeVida, this.protocoloNum, this.ipOrigen, this.ipDestino);
 
-    console.log(resultado);
+    let fragmento = separarBits(resultado);
+    this.fragmentos = fragmento.join(' ').replace(/ /g, "\n").replace(/,/g, " ");
+
+    let fragmentoBinario = separarBitsBinario(resultado);
+    this.fragmentosBinarios = fragmentoBinario.join().replace(/;/g, "\n").replace(/,/g, " ");
+
+    console.log(separarBitsBinario(resultado));
   }
 
   radioChangeHandler(event: any) {
@@ -57,7 +76,6 @@ function fragmentarDataGrama(MTU, longitudEncabezado, version, longitudTotal, se
   var flags = "001";
 
   for (let index = 0; index < cantidadFragmentos; index++) {
-
 
     var longitudTotalB = agregarCeros(MTU.toString(2), 16);
     var desplazamientoB = agregarCeros(desplazamiento.toString(2), 13);
@@ -138,4 +156,96 @@ function agregarCeros(binario, longitud) {
 
 function generarNumeroAleatorio(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
+}
+
+/**
+ * Convierte un numero binario de 8 bits a hexadecimal
+ * @param {*} Binario 
+ * @returns 
+ */
+function binHex(Binario: string) {
+
+  let decimalTemporal = parseInt(Binario, 2);
+  let Hexadecimal = decimalTemporal.toString(16);
+
+  return Hexadecimal;
+}
+
+/**
+* Separa los bits del encabezado en tramos de 8 bits
+* @param {*} arreglo 
+* @returns arreglo con parejas hexadecimales
+*/
+function separarBits(arreglo) {
+
+  let fragment = [];
+
+  for (let index = 0; index < arreglo.length; index++) {
+
+    let parejas = [];
+    var fragmento = arreglo[index];
+    var hexa = '';
+
+    var pareja = '';
+
+    for (let i = 0; i < fragmento.length; i++) {
+
+      pareja = pareja + (fragmento[i]);
+
+      if (pareja.length == 8) {
+
+        hexa = binHex(pareja);
+
+        if (hexa.length == 1) {
+
+          hexa = '0' + hexa;
+        }
+        parejas.push(hexa);
+
+        pareja = '';
+      }
+    }
+
+    fragment.push(parejas);
+  }
+
+  return fragment;
+}
+
+
+function separarBitsBinario(arreglo: string[]) {
+
+  let fragment = [];
+  let con = 0;
+
+  for (let index = 0; index < arreglo.length; index++) {
+
+    let octetos = [];
+    var fragmento = arreglo[index];
+    var octeto = '';
+
+    var pareja = '';
+
+    for (let i = 0; i < fragmento.length; i++) {
+
+      pareja = pareja + (fragmento[i]);
+      con++;
+
+      if (pareja.length == 8) {
+        octeto = pareja;
+        octetos.push(octeto);
+        pareja = '';
+      }
+
+      if(con == 32){
+        octetos.push(";")
+        con = 0;
+      }
+    }
+
+    fragment.push(octetos);
+    octetos.push(";");
+  }
+
+  return fragment;
 }
