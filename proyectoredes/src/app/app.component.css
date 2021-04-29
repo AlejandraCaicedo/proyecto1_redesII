@@ -12,7 +12,7 @@ table {
 }
 
 caption, th, td {
-  text-align: left;
+  text-align: center;
   font-weight: normal;
   vertical-align: middle;
 }
@@ -104,7 +104,7 @@ h2.heading {
   font-size: 18px;
   text-transform: uppercase;
   font-weight: 300;
-  text-align: left;
+  text-align: center;
   color: #506982;
   border-bottom: 1px solid #506982;
   padding-bottom: 3px;
@@ -121,11 +121,11 @@ body{
 
 #datagramaip{
   background-color: #fff;
-  max-width: 800px;
+  max-width: 1245px;
   margin: 20px auto 0;
-  padding: 40px;
+  padding: 30px;
   color: #858b8e;
-  box-shadow: 6px 6px 6px rgba(0.2,0.2,0.2,0.2);
+  box-shadow: 6px 6px 6px 6px rgba(0.2,0.2,0.2,0.2);
 }
 
 #datagramaip h2{
@@ -143,9 +143,9 @@ body{
 
 #datagramaip .form-group{
   margin-bottom: 20px;
-  margin-left:20px;
+  margin-left:0px;
   width: 100%;
-  float:left;
+  float:center;
   text-align: center;
 }
 
@@ -175,7 +175,7 @@ body{
   outline: none;
 }
 
-@media screen and (max-width: 800px){
+@media screen and (max-width: 1000px){
   #datagramaip .form-group{
       width: 30%;
   }

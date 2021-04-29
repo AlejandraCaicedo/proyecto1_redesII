@@ -22,7 +22,10 @@
 
   <div class="container" id="datagramaip">
 
-    <h2>Datos de entrada</h2>
+    <h2>Datagrama IP en formato legible</h2>
+    <h6 style="margin-bottom: 30px;">-Complete los campos editables del formulario poder generar el encabezado completo-
+    </h6>
+    <h6></h6>
 
     <div class="row">
 
@@ -49,11 +52,7 @@
                 <p></p>
                 <input type="text" class="form-control" placeholder="0" id="servicios" readonly>
               </div>
-            </div>
-          </div>
 
-          <div class="form-group">
-            <div class="row">
               <div class="col-sm">
                 <label for="longitudTotal">Longitud total</label>
                 <p></p>
@@ -70,33 +69,31 @@
           </div>
 
           <div class="form-group">
-
-            <label>Flags</label>
-            <p></p>
-
             <div class="row">
 
               <div class="col-sm">
-                <input type="text" class="form-control" placeholder="0" id="flag1" readonly>
-                <label for="flag1">0</label>
+                <div class="form-group">
+                  <div class="row">
+                    <label>Flags</label>
+                    <p></p>
+                    <div class="col-sm">
+                      <input type="text" class="form-control" placeholder="0" id="flag1" readonly>
+                      <label for="flag1">0</label>
+                    </div>
+
+                    <div class="col-sm">
+                      <input type="text" class="form-control" placeholder="DF" id="DF" readonly>
+                      <label for="DF">DF</label>
+                    </div>
+
+                    <div class="col-sm">
+                      <input type="text" class="form-control" placeholder="MF" id="MF" readonly>
+                      <label for="MF">MF</label>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div class="col-sm">
-                <input type="text" class="form-control" placeholder="DF" id="DF" readonly>
-                <label for="DF">DF</label>
-              </div>
-
-              <div class="col-sm">
-                <input type="text" class="form-control" placeholder="MF" id="MF" readonly>
-                <label for="MF">MF</label>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="form-group">
-            <div class="row">
               <div class="col-sm">
                 <label for="desplazamiento">Desplazamiento</label>
                 <p></p>
@@ -108,11 +105,13 @@
                 <p></p>
                 <input type="text" class="form-control" placeholder="Valor entre 0 y 255" id="ttl" readonly>
               </div>
+
             </div>
           </div>
 
           <div class="form-group">
             <div class="row">
+
               <div class="col-sm">
                 <label>Protocolo de nivel superior</label>
                 <p></p>
@@ -134,68 +133,87 @@
                 <p></p>
                 <input type="text" class="form-control" placeholder="Suma de comprobación" id="suma" readonly>
               </div>
+
             </div>
           </div>
 
           <div class="form-group">
-
-            <label>Dirección IP de origen</label>
-            <p></p>
-
             <div class="row">
+
               <div class="col-sm">
-                <input type="number" class="form-control" id="ipOrigen1" required #ipOrigen1>
-                <label for="ipOrigen1">Octeto 1</label>
+                <div class="form-group">
+                  <div class="row">
+                    <label>Dirección IP de origen</label>
+                    <p></p>
+
+                    <div class="col-sm">
+                      <input type="number" class="form-control" style="background-color:rgb(241, 255, 210);"
+                        id="ipOrigen1" required #ipOrigen1>
+                      <label for="ipOrigen1">Octeto 1</label>
+                    </div>
+
+                    <div class="col-sm">
+                      <input type="number" class="form-control" style="background-color:rgb(241, 255, 210);"
+                        id="ipOrigen2" required #ipOrigen2>
+                      <label for="ipOrigen2">Octeto 2</label>
+                    </div>
+
+                    <div class="col-sm">
+                      <input type="number" class="form-control" style="background-color:rgb(241, 255, 210);"
+                        id="ipOrigen3" required #ipOrigen3>
+                      <label for="ipOrigen3">Octeto 3</label>
+                    </div>
+
+                    <div class="col-sm">
+                      <input type="number" class="form-control" style="background-color:rgb(241, 255, 210);"
+                        id="ipOrigen4" required #ipOrigen4>
+                      <label for="ipOrigen4">Octeto 4</label>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div class="col-sm">
-                <input type="number" class="form-control" id="ipOrigen2" required #ipOrigen2>
-                <label for="ipOrigen2">Octeto 2</label>
-              </div>
+                <div class="form-group">
+                  <div class="row">
+                    <label>Dirección IP de destino</label>
+                    <p></p>
 
-              <div class="col-sm">
-                <input type="number" class="form-control" id="ipOrigen3" required #ipOrigen3>
-                <label for="ipOrigen3">Octeto 3</label>
-              </div>
+                    <div class="col-sm">
+                      <input type="number" class="form-control" style="background-color:rgb(255, 255, 210);"
+                        id="ipDestino1" required #ipDestino1>
+                      <label for="ipDestino1">Octeto 1</label>
+                    </div>
 
-              <div class="col-sm">
-                <input type="number" class="form-control" id="ipOrigen4" required #ipOrigen4>
-                <label for="ipOrigen4">Octeto 4</label>
+                    <div class="col-sm">
+                      <input type="number" class="form-control" style="background-color:rgb(255, 255, 210);"
+                        id="ipDestino2" required #ipDestino2>
+                      <label for="ipDestino2">Octeto 2</label>
+                    </div>
+
+                    <div class="col-sm">
+                      <input type="number" class="form-control" style="background-color:rgb(255, 255, 210);"
+                        id="ipDestino3" required #ipDestino3>
+                      <label for="ipDestino3">Octeto 3</label>
+                    </div>
+
+                    <div class="col-sm">
+                      <input type="number" class="form-control" style="background-color:rgb(255, 255, 210);"
+                        id="ipDestino4" required #ipDestino4>
+                      <label for="ipDestino4">Octeto 4</label>
+                    </div>
+                  </div>
+                </div>
               </div>
 
             </div>
-
           </div>
 
           <div class="form-group">
-
-            <label>Dirección IP de destino</label>
-            <p></p>
-
-            <div class="row">
-
-              <div class="col-sm">
-                <input type="number" class="form-control" id="ipDestino1" required #ipDestino1>
-                <label for="ipDestino1">Octeto 1</label>
-              </div>
-
-              <div class="col-sm">
-                <input type="number" class="form-control" id="ipDestino2" required #ipDestino2>
-                <label for="ipDestino2">Octeto 2</label>
-              </div>
-
-              <div class="col-sm">
-                <input type="number" class="form-control" id="ipDestino3" required #ipDestino3>
-                <label for="ipDestino3">Octeto 3</label>
-              </div>
-
-              <div class="col-sm">
-                <input type="number" class="form-control" id="ipDestino4" required #ipDestino4>
-                <label for="ipDestino4">Octeto 4</label>
-              </div>
-
-            </div>
-
+            <button (click)="generarDatagrama(longitudTotal.valueAsNumber, ipOrigen1.valueAsNumber, ipOrigen2.valueAsNumber, ipOrigen3.valueAsNumber, ipOrigen4.valueAsNumber,
+              ipDestino1.valueAsNumber, ipDestino2.valueAsNumber, ipDestino3.valueAsNumber, ipDestino4.valueAsNumber)"
+              type="button" class="btn btn-lg btn-primary">Generar
+              encabezado</button>
           </div>
 
         </form>
@@ -204,15 +222,15 @@
 
     </div>
 
+
+
     <div class="form-group">
-      <button (click)="generarDatagrama(longitudTotal.valueAsNumber, ipOrigen1.valueAsNumber, ipOrigen2.valueAsNumber, ipOrigen3.valueAsNumber, ipOrigen4.valueAsNumber,
-        ipDestino1.valueAsNumber, ipDestino2.valueAsNumber, ipDestino3.valueAsNumber, ipDestino4.valueAsNumber)"
-        type="button" class="btn btn-lg btn-primary">Generar
-        encabezado</button>
+      <label for="floatingTextarea">Encabezado Datagrama IPv4 en formato binario</label>
+      <textarea class="form-control" placeholder="Encabezado Datagrama IPv4" id="floatingTextarea" readonly></textarea>
     </div>
 
     <div class="form-group">
-      <label for="floatingTextarea">Encabezado Datagrama IPv4</label>
+      <label for="floatingTextarea">Encabezado Datagrama IPv4 en formato Hexadecimal</label>
       <textarea class="form-control" placeholder="Encabezado Datagrama IPv4" id="floatingTextarea" readonly></textarea>
     </div>
 
