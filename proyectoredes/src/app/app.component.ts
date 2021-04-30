@@ -23,10 +23,13 @@ export class AppComponent {
   ipOrigen = "";
   ipDestino = "";
 
-  checksum = "";
+  checksum = "Suma de comprobación";
+  banderas: String = "";
+  desplazamiento = "Desplazamiento";
+  DF: String = "DF";
+  MF: String = "MF";
 
   fragmentos: String = "Encabezado Datagrama IPv4";
-  // fragmentosBinarios: String[] = ["Encabezado Datagrama IPv4"];
   fragmentosBinarios: String = "Encabezado Datagrama IPv4";
 
   generarDatagrama(MTU: number, longitudTotal: number, ipOrigen1: number, ipOrigen2: number, ipOrigen3: number, ipOrigen4: number,
@@ -35,6 +38,7 @@ export class AppComponent {
     // Identificación y TTL generados Aleatoriamente
     let identificacionNum = generarNumeroAleatorio(0, 65535);
     let identificacion = agregarCeros(identificacionNum.toString(2), 16);
+    let identificacionBinaria = identificacion;
     this.identificacion = convertirBinarioHexa(identificacion);
     let identificacionHexa = convertirBinarioHexa(identificacion);
     let tiempoDeVidaNum = generarNumeroAleatorio(0, 255);
@@ -50,7 +54,15 @@ export class AppComponent {
 
     // Array de Datagramas, si existen más de 1 Desplazamiento(Quemado)
     let resultado = fragmentarDataGrama(MTU, this.version, this.longitudEncabezado, longitudTotal, this.serviciosDiferenciados,
-      "1111100111011100", tiempoDeVida, this.protocoloNum, this.ipOrigen, this.ipDestino);
+      identificacionBinaria, tiempoDeVida, this.protocoloNum, this.ipOrigen, this.ipDestino);
+
+    let valores = regresarChecksum(MTU, this.version, this.longitudEncabezado, longitudTotal, this.serviciosDiferenciados,
+      identificacionBinaria, tiempoDeVida, this.protocoloNum, this.ipOrigen, this.ipDestino)
+
+    this.checksum = binHex(valores[0]);
+    this.DF = valores[1].toString().substring(1,2);
+    this.MF = valores[1].toString().substring(2);
+    this.desplazamiento = valores[2].toString();
 
     let fragmento = separarBits(resultado);
     this.fragmentos = fragmento.join(' ').replace(/ /g, "\n").replace(/,/g, " ");
@@ -58,7 +70,6 @@ export class AppComponent {
     let fragmentoBinario = separarBitsBinario(resultado);
     this.fragmentosBinarios = fragmentoBinario.join().replace(/;/g, "\n").replace(/,/g, " ");
 
-    console.log(separarBitsBinario(resultado));
   }
 
   radioChangeHandler(event: any) {
@@ -163,7 +174,7 @@ function generarNumeroAleatorio(min, max) {
  * @param {*} Binario 
  * @returns 
  */
-function binHex(Binario: string) {
+function binHex(Binario: any) {
 
   let decimalTemporal = parseInt(Binario, 2);
   let Hexadecimal = decimalTemporal.toString(16);
@@ -212,7 +223,6 @@ function separarBits(arreglo) {
   return fragment;
 }
 
-
 function separarBitsBinario(arreglo: string[]) {
 
   let fragment = [];
@@ -237,7 +247,7 @@ function separarBitsBinario(arreglo: string[]) {
         pareja = '';
       }
 
-      if(con == 32){
+      if (con == 32) {
         octetos.push(";")
         con = 0;
       }
@@ -248,4 +258,43 @@ function separarBitsBinario(arreglo: string[]) {
   }
 
   return fragment;
+}
+
+function regresarChecksum(MTU, longitudEncabezado, version, longitudTotal, serviciosDiferenciados,
+  identificacion, tiempoDeVida, protocolo, ipOrigen, ipDestino) {
+
+  let datagramas = [];
+  var cantidadFragmentos = Math.trunc(longitudTotal / (MTU - 20));
+  var desplazamiento = 0;
+  var flags = "001";
+
+  for (let index = 0; index < cantidadFragmentos; index++) {
+
+    var longitudTotalB = agregarCeros(MTU.toString(2), 16);
+    var desplazamientoB = agregarCeros(desplazamiento.toString(2), 13);
+    var datagrama = version + longitudEncabezado + serviciosDiferenciados + longitudTotalB
+      + identificacion + flags + desplazamientoB
+      + tiempoDeVida + protocolo + ipOrigen + ipDestino;
+    var suma = obtenerSumaComprobacion(datagrama);
+    datagrama = version + longitudEncabezado + serviciosDiferenciados + longitudTotalB
+      + identificacion + flags + desplazamientoB
+      + tiempoDeVida + protocolo + suma + ipOrigen + ipDestino;
+    datagramas.push(datagrama);
+    desplazamiento += (MTU - 20) / 8;
+
+  }
+
+  var longitudTotalB = agregarCeros((longitudTotal - (((MTU - 20) * cantidadFragmentos)) + 20).toString(2), 16);
+  desplazamiento = ((MTU - 20) * cantidadFragmentos) / 8;
+  desplazamientoB = agregarCeros(desplazamiento.toString(2), 13);
+  var datagrama = version + longitudEncabezado + serviciosDiferenciados + longitudTotalB
+    + identificacion + "000" + desplazamientoB
+    + tiempoDeVida + protocolo + ipOrigen + ipDestino;
+  var suma = obtenerSumaComprobacion(datagrama);
+  datagrama = version + longitudEncabezado + serviciosDiferenciados + longitudTotalB
+    + identificacion + flags + desplazamientoB
+    + tiempoDeVida + protocolo + suma + ipOrigen + ipDestino;
+  datagramas.push(datagrama);
+
+  return [suma, flags, desplazamiento];
 }
